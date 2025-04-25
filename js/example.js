@@ -2,9 +2,9 @@ class Example extends Phaser.Scene {
     preload() {
         // this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
 
-        this.load.image('sky', './img/example/space3.png');
-        this.load.image('logo', './img/example/phaser3-logo.png');
-        this.load.image('red', './img/example/red.png');
+        this.load.image('sky', '/img/example/space3.png');
+        this.load.image('logo', '/img/example/phaser3-logo.png');
+        this.load.image('red', '/img/example/red.png');
     }
 
     create() {
@@ -28,9 +28,10 @@ class Example extends Phaser.Scene {
 
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
     scene: Example,
+    parent: 'canvasCtn',
+    width: 720,
+    height: 480,
     physics: {
         default: 'arcade',
         arcade: {
