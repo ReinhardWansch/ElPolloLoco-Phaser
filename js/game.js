@@ -1,5 +1,11 @@
 let canvasWidth = 720;
 let canvasHeight = 480;
+let character; ///DEBUG
+let characterSpeed = 10;
+let characterHitbox= {x: 154, y: 587};
+let characterHitboxFacingLeft= {x: 199, y: 587};
+let characterIsMoving= false;
+let characterFacingLeft= false;
 
 class ElPolloLoco extends Phaser.Scene {
 
@@ -21,12 +27,12 @@ class ElPolloLoco extends Phaser.Scene {
         // Character hinzufügen
         this.character = this.physics.add.sprite(160, 0, 'character');
         // Hitbox anpassen
-        this.character.body.setSize(248, 555); // Breite: 100px, Höhe: 200px
-        this.character.body.setOffset(154, 587); // Verschiebt die Hitbox um 50px nach rechts und unten
+        this.character.body.setSize(248, 555); // Hitbox Breite und Höhe
+        this.character.body.offset= characterHitbox;
         this.character.setScale(0.25);
+        character= this.character; ///DEBUG
 
         // Boden hinzufügen
-        console.log(canvasWidth); ///DEBUG
         const ground = this.add.rectangle(0, canvasHeight - 40, 100000, 10, 0x000000, 0); // Transparenter Boden
         this.physics.add.existing(ground, true); // Füge Physik hinzu (statisch)
         // Kollision zwischen Charakter und Boden
@@ -35,7 +41,22 @@ class ElPolloLoco extends Phaser.Scene {
 
 
     update() {
-        // this.cameras.main.scrollX += 2; ///DEBUG
+        const cursors = this.input.keyboard.createCursorKeys();
+        if (cursors.left.isDown) {
+            this.character.x -= characterSpeed;
+            this.cameras.main.scrollX -= characterSpeed;
+            this.character.setFlipX(true); // Spiegeln, wenn nach links bewegt
+            this.character.body.offset= characterHitboxFacingLeft;
+        } else if (cursors.right.isDown) {
+            this.character.x += characterSpeed;
+            this.cameras.main.scrollX += characterSpeed;
+            this.character.setFlipX(false); // Normal, wenn nach rechts bewegt
+            this.character.body.offset= characterHitbox;
+        }
+
+        if (cursors.up.isDown && this.character.body.touching.down) {
+            this.character.setVelocityY(-330);
+        }
     }
 
 }
