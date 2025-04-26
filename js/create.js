@@ -1,3 +1,4 @@
+let characterDebug;
 
 function addBackground(scene) {
     const background = scene.add.image(0, 0, 'background');
@@ -13,7 +14,17 @@ function addGround(scene) {
 
 function addCharacter(scene) {
     scene.character = scene.physics.add.sprite(160, 0, 'character');
-    scene.character.body.setSize(248, 555); // Hitbox Breite und Höhe
-    scene.character.body.offset = characterHitbox; // Hitbox Position
-    scene.character.setScale(0.25);
+    characterDebug= scene.character ///DEBUG
+    // scene.character.body.setSize(248, 555); // Hitbox Breite und Höhe
+    // scene.character.body.offset = characterHitbox; // Hitbox Position
+    scene.character.setScale(0.5);
+}
+
+function addCharacterAnimations(scene) {
+    scene.anims.create({
+        key: 'idle',
+        frames: scene.anims.generateFrameNumbers('character', { start: 0, end: 9 }),
+        frameRate: 3,
+        repeat: -1
+    });
 }

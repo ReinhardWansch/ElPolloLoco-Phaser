@@ -1,6 +1,7 @@
 let canvasWidth = 720;
 let canvasHeight = 480;
-let characterSpeed = 10;
+let characterWalkSpeed = 400;
+let characterJumpSpeed = 660;
 let characterHitbox = { x: 154, y: 587 };
 let characterHitboxFacingLeft = { x: 199, y: 587 };
 
@@ -10,20 +11,23 @@ class ElPolloLoco extends Phaser.Scene {
         this.load.image('background', '/img/complete_background.png');
 
         this.load.spritesheet('character', '/img/sprites/spritesheet-pepe.png', {
-            frameWidth: 610, // Breite eines Frames
-            frameHeight: 1200 // Höhe eines Frames
+            frameWidth: 305, // Breite eines Frames
+            frameHeight: 600 // Höhe eines Frames
         });
     }
 
     create() {
         addBackground(this);
         addCharacter(this);
+        addCharacterAnimations(this);
         addGround(this);
+        this.character.play('idle');
     }
 
     update() {
         this.cursors = this.input.keyboard.createCursorKeys();
         moveCharacter(this);
+        scrollToCharacter(this);
     }
 }
 
