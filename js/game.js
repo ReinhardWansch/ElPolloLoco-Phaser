@@ -14,14 +14,18 @@ class ElPolloLoco extends Phaser.Scene {
             frameWidth: 305, // Breite eines Frames
             frameHeight: 600 // Höhe eines Frames
         });
+        
+        this.load.spritesheet('chicken', '/img/sprites/spritesheet-chicken.png', {
+            frameWidth: 72, // Breite eines Frames
+            frameHeight: 72 // Höhe eines Frames
+        });
     }
 
     create() {
         addBackground(this);
         addCharacter(this);
-        addCharacterAnimations(this);
+        addChicken(this);
         addGround(this);
-        this.character.play('idle');
     }
 
     update() {
@@ -47,4 +51,3 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-
